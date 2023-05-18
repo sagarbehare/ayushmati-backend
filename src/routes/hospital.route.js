@@ -9,7 +9,6 @@ router.get('/hospitals', async (req, res) => {
     .catch((error) => res.status(500).json({ error: 'Internal server error' }));
 });
 
-
 router.post('/hospitals', async (req, res) => {
   const { hospitalName, email } = req.body;
 
@@ -19,7 +18,6 @@ router.post('/hospitals', async (req, res) => {
     .then(() => res.json({ message: 'Hospital created successfully' }))
     .catch((error) => res.status(500).json({ error: 'Internal server error' }));
 });
-
 
 module.exports = router;
 
