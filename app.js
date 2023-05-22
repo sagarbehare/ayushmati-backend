@@ -4,6 +4,8 @@ const connectDB = require('./src/config/db.connection');
 const jwt = require('jsonwebtoken');
 const hospitalRoutes = require('./src/routes/hospital.route');
 const authenticateRoutes = require('./src/routes/authenticate.route');
+const patientRegistrationRoutes = require('./src/routes/patient.route');
+
 
 
 const app = express();
@@ -17,9 +19,11 @@ app.use(express.json());
 // Connect to MongoDB
 connectDB();
 
+
 // Routes
 app.use('/registration', validateUser, hospitalRoutes);
 app.use('/authenticate', authenticateRoutes);
+app.use('/patientRegistration', patientRegistrationRoutes);
 
 
 // check token is expired or not
