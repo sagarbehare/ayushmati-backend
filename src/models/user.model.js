@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
     emailID: String,
     password: String,
     status: String,
-    address: [addressSchema]
 });
 
 
