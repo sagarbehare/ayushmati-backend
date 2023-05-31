@@ -63,11 +63,12 @@ router.post('/createPatient', async (req, res) => {
   const admissionDate = newPatient.admissionDate;
 
   const mrn = generateMRN();
+  const status = 'ADMITTED';
   
   console.log('saving called..');
   const patient = new Patient({ patientName, dateOfBirth, sex, maritalStatus, contactNo,
     emergContactNo, country, state, city, pincode, address, primaryDoctor, weight, height, bloodGrp, symtoms, disease,
-    ward, room, bed, admissionDate, mrn
+    ward, room, bed, admissionDate, mrn, status
   });
 
   try {
