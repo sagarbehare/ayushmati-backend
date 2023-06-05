@@ -17,6 +17,12 @@ router.post('/signup', async (req, res) => {
   try {
     const { hospitalName, docID_empID, role, firstName, lastName, emailID, password } = req.body;
     const status = STATUS_ACTIVE;
+
+    const oldUser = await User.findOne({ emailID });
+
+    if (oldUser) {
+      return res.status(409).send("User Already Exist. Please Login");
+    }
     
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -57,7 +63,9 @@ router.post('/login', async (req, res) => {
     }
 
     // Generate a JWT token
-    const token = generateToken(emailID);
+    const tokenData = {emailID:emailID,hospitalName:user.hospitalName}
+
+    const token = generateToken(tokenData);
     
      const tempUser = {...user}
      delete tempUser._doc.password
@@ -69,8 +77,8 @@ router.post('/login', async (req, res) => {
   }
 });
 
-function generateToken(emailID) {
-  const token = jwt.sign({emailID}, `${secretKey}`, {
+function generateToken(tokenData) {
+  const token = jwt.sign({tokenData}, secretKey, {
     expiresIn: '1h'
   });
   return token;

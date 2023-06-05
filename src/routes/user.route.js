@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/listActiveDoctor', async (req, res) => {
   User.find({
     $and: [
-      { role: 'DOCTOR' },
+      { role: 'Doctor' },
       { status: 'ACTIVE' }
     ]
   })
