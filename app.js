@@ -35,7 +35,7 @@ console.log("hi");
 // Routes
 // app.use('/registration', validateUser, hospitalRoutes);
 
-app.use('/registration',validateUser, hospitalRoutes);
+app.use('/registration', hospitalRoutes);
 app.use('/authenticate', authenticateRoutes);
 app.use('/patientRegistration',validateUser, patientRegistrationRoutes);
 app.use('/user', users);
@@ -44,24 +44,24 @@ app.use('/disease', disease);
 
 // check token is expired or not
 function validateUser(req, res, next) {
-  console.log("inside validate token")
-  console.log( req.headers["x-access-token"])
   const token = req.headers["x-access-token"]
-  jwt.verify(
-    token ,
-    secretKey,
-    function (err, decoded) {
-      if (err) {
-        res.json({ status: "error", message: err.message, data: null });
-      } else {
-        // add user id to request
-        req.body.userId = decoded.id;
-        req.body.emailID = decoded.emailID;
-        req.body.hospitalName = decoded.hospitalName;
-        next();
-      }
-    }
-  );
+
+
+  try{
+      const data = jwt.verify(token,secretKey);
+      console.log(data.tokenData)
+      // req.body.userId = data.tokenDataData.id;
+        req.body.emailID = data.tokenData.emailID;
+        req.body.name= data.tokenData.name;
+        req.body.hospitalName = data.tokenData.hospitalName;
+        req.body.role = data.tokenData.role;
+        console.log(data.tokenData.role)
+        console.log(req.body.emailID)
+        next()
+  }
+  catch(err){
+    res.json({ status: "error", message: err.message, data: null });
+  }
 }
 
 

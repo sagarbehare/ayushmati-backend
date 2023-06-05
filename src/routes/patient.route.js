@@ -7,9 +7,29 @@ const crypto = require('crypto');
 
 // Routes // route.js
 router.get('/listPatient', async (req, res) => {
-  Patient.find({})
+  console.log("inside patient list")
+  try {
+    const { role ,name , hospitalName} = req.body;
+    console.log(req.body.role)
+    
+   if(role==='Receptionist'){
+    Patient.find({})
     .then((patient) => res.json(patient))
     .catch((error) => res.status(500).json({ error: 'Internal server error' }));
+   }
+   else if (role==='Doctor'){
+    Patient.find({
+      primaryDoctor:name
+    })
+    .then((patient) => res.json(patient))
+    .catch((error) => res.status(500).json({ error: 'Internal server error' }));
+   }
+
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+  
+  
 });
 
 router.get('/getPatient', async (req, res) => {
