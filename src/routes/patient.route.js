@@ -39,7 +39,7 @@ router.post('/createPatient', async (req, res) => {
 
   console.log('saving called..'+newPatient);
 
-  const patientName = newPatient.patientName;
+    const patientName = newPatient.patientName;
   const dateOfBirth = newPatient.dateOfBirth;
   const sex = newPatient.sex;
   const maritalStatus = newPatient.maritalStatus;
@@ -63,21 +63,20 @@ router.post('/createPatient', async (req, res) => {
   const admissionDate = newPatient.admissionDate;
 
   const mrn = generateMRN();
-  const status = 'ADMITTED';
-  
-  console.log('saving called..');
-  const patient = new Patient({ patientName, dateOfBirth, sex, maritalStatus, contactNo,
-    emergContactNo, country, state, city, pincode, address, primaryDoctor, weight, height, bloodGrp, symtoms, disease,
-    ward, room, bed, admissionDate, mrn, status
-  });
+  const status = 'DISCHARGED';
 
-  try {
-    await patient.save();
-    console.log('savedPatient ' + patient._id);
-    res.status(201).json({ patientID: patient._id, message: 'Patient created successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
+  const patient = new Patient({ patientName, dateOfBirth, sex, maritalStatus, contactNo,
+        emergContactNo, country, state, city, pincode, address, primaryDoctor, weight, height, bloodGrp, symtoms, disease,
+        ward, room, bed, admissionDate, mrn, status
+      });
+
+      try {
+            await patient.save();
+            console.log('savedPatient ' + patient._id);
+            res.status(201).json({ patientID: patient._id, message: 'Patient created successfully' });
+          } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+          }
 });
 
 router.put('/updatePatient/:patientID', async (req, res) => {

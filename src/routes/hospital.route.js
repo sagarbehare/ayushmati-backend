@@ -4,12 +4,15 @@ const router = express.Router();
 
 // Routes // route.js
 router.get('/listHospital', async (req, res) => {
+  console.log("hi from list")
     Hospital.find({})
     .then((hospitals) => res.json(hospitals))
     .catch((error) => res.status(500).json({ error: 'Internal server error' }));
 });
 
 router.post('/createHospital', async (req, res) => {
+
+  
   const { hospitalName, email } = req.body;
 
   const newHospital = new Hospital({ hospitalName, email });

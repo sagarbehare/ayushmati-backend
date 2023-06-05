@@ -32,7 +32,8 @@ console.log("hi");
 
 
 // Routes
-app.use('/registration', validateUser, hospitalRoutes);
+// app.use('/registration', validateUser, hospitalRoutes);
+app.use('/registration', hospitalRoutes);
 app.use('/authenticate', authenticateRoutes);
 app.use('/patientRegistration', patientRegistrationRoutes);
 app.use('/user', users);
