@@ -14,6 +14,17 @@ router.get('/listActiveDoctor', async (req, res) => {
     .catch((error) => res.status(500).json({ error: 'Internal server error' }));
 });
 
+router.get('/listActiveNurse', async (req, res) => {
+  User.find({
+    $and: [
+      { role: 'Nurse' },
+      { status: 'ACTIVE' }
+    ]
+  })
+    .then((users) => res.json(users))
+    .catch((error) => res.status(500).json({ error: 'Internal server error' }));
+});
+
 module.exports = router;
 
 
