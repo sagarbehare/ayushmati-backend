@@ -8,7 +8,7 @@ const authenticateRoutes = require('./src/routes/authenticate.route');
 const patientRegistrationRoutes = require('./src/routes/patient.route');
 const users = require('./src/routes/user.route');
 const disease = require('./src/routes/disease.route');
-
+const task = require('./src/routes/task.route')
 
 
 const app = express();
@@ -40,6 +40,7 @@ app.use('/authenticate', authenticateRoutes);
 app.use('/patientRegistration',validateUser, patientRegistrationRoutes);
 app.use('/user', users);
 app.use('/disease', disease);
+app.use('/patientTask',task)
 
 
 // check token is expired or not
