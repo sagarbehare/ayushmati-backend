@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/user.model");
+const Ward = require("../models/ward.model");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -20,12 +21,19 @@ router.post("/signup", async (req, res) => {
       lastName,
       emailID,
       password,
+      country,
+      state,
+      city,
+      pincode,
+      wardName
     } = req.body;
     const status = STATUS_ACTIVE;
 
     const oldUser = await User.findOne({ emailID });
+    console.log(oldUser);
 
-    if (oldUser) {
+    if(oldUser != null) {
+      console.log('old user exists...');
       return res.status(409).send("User Already Exist. Please Login");
     }
 
@@ -46,13 +54,38 @@ router.post("/signup", async (req, res) => {
       emailID,
       status,
       password: hashedPassword,
+      country,
+      state,
+      city,
+      pincode
     });
 
     newUser
       .save()
-      .then(() =>
+      .then(() => {
+        console.log('nurse saved...'+role);
+        if(role === 'Nurse') { // Map with Wards
+          console.log('find wards..');
+
+          Ward.findOne({ 
+            $and: [
+              { hospitalName: hospitalName },     // Condition 1: age is greater than or equal to 18
+              { wardName: wardName }         // Condition 2: isActive is true
+            ]
+          })
+          .then(async (ward) =>  {
+            const nurses = ward.nurses;
+            console.log('nurses...' + nurses);
+            nurses.push({nurseID: emailID});
+            ward.save();
+          })
+          .catch((error) => res.status(500).json({ error: 'Internal server error' }));
+        }
+        
+        // route...
+
         res.status(201).json({ message: "User registered successfully" })
-      )
+      })
       .catch((error) =>
         res.status(500).json({ error: "Internal server error1" })
       );

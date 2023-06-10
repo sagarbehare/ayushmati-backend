@@ -1,13 +1,5 @@
 const mongoose = require('mongoose');
 
-const addressSchema = new mongoose.Schema({
-    country: String,
-    state: String,
-    city: String,
-    address: String,
-    pincode: Number
-});
-
 const userSchema = new mongoose.Schema({
     hospitalName: String,
     docID_empID: String,
@@ -16,7 +8,11 @@ const userSchema = new mongoose.Schema({
     lastName: String,
     emailID: String,
     password: String,
-    status: String,
+    country: String,
+    state: String,
+    city: String,
+    pincode: String,
+    status: String
 });
 
 

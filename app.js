@@ -8,7 +8,8 @@ const authenticateRoutes = require('./src/routes/authenticate.route');
 const patientRegistrationRoutes = require('./src/routes/patient.route');
 const users = require('./src/routes/user.route');
 const disease = require('./src/routes/disease.route');
-const task = require('./src/routes/task.route')
+const task = require('./src/routes/task.route');
+const ward = require('./src/routes/ward.route');
 
 
 const app = express();
@@ -28,27 +29,21 @@ app.use(cors());
 // Connect to MongoDB
 connectDB();
 
-console.log("hi");
-
-
-
 // Routes
-// app.use('/registration', validateUser, hospitalRoutes);
-
 app.use('/registration', hospitalRoutes);
 app.use('/authenticate', authenticateRoutes);
 app.use('/patientRegistration',validateUser, patientRegistrationRoutes);
 app.use('/user', users);
 app.use('/disease', disease);
-app.use('/patientTask',task)
+app.use('/patientTask',task);
+app.use('/wardsDetails',ward);
+
 
 
 // check token is expired or not
 function validateUser(req, res, next) {
   const token = req.headers["x-access-token"]
-
-
-  try{
+  try {
       const data = jwt.verify(token,secretKey);
       console.log(data.tokenData)
       // req.body.userId = data.tokenDataData.id;
@@ -59,13 +54,10 @@ function validateUser(req, res, next) {
         console.log(data.tokenData.role)
         console.log(req.body.emailID)
         next()
-  }
-  catch(err){
+  } catch(err){
     res.json({ status: "error", message: err.message, data: null });
   }
 }
-
-
 
 // Start the server
 app.listen(port, () => {
