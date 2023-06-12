@@ -1,34 +1,53 @@
-const express = require('express');
-const User = require('../models/user.model');
+const express = require("express");
+const User = require("../models/user.model");
 const router = express.Router();
 
 // Routes // route.js
-router.get('/listActiveDoctor', async (req, res) => {
+// router.get('/listActiveDoctor', async (req, res) => {
+//   User.find({
+//     $and: [
+//       { role: 'Doctor' },
+//       { status: 'ACTIVE' }
+//     ]
+//   })
+//     .then((users) => res.json(users))
+//     .catch((error) => res.status(500).json({ error: 'Internal server error' }));
+// });
+
+router.get("/listActiveDoctor/:hospitalName", async (req, res) => {
+  const { hospitalName } = req.params;
+
+  console.log("active doctor for hosp : " + hospitalName);
+
   User.find({
     $and: [
-      { role: 'Doctor' },
-      { status: 'ACTIVE' }
-    ]
+      { role: "Doctor" },
+
+      { status: "ACTIVE" },
+
+      { hospitalName: hospitalName },
+    ],
   })
+
     .then((users) => res.json(users))
-    .catch((error) => res.status(500).json({ error: 'Internal server error' }));
+
+    .catch((error) => res.status(500).json({ error: "Internal server error" }));
 });
 
-router.get('/listActiveNurse', async (req, res) => {
+router.get("/listActiveNurse/:hospitalName", async (req, res) => {
+  const { hospitalName } = req.params;
   User.find({
     $and: [
-      { role: 'Nurse' },
-      { status: 'ACTIVE' }
-    ]
+      { role: "Nurse" },
+      { status: "ACTIVE" },
+      { hospitalName: hospitalName }
+    ],
   })
     .then((users) => res.json(users))
-    .catch((error) => res.status(500).json({ error: 'Internal server error' }));
+    .catch((error) => res.status(500).json({ error: "Internal server error" }));
 });
 
 module.exports = router;
-
-
-
 
 /*
 app.put('/users/:id', (req, res) => {

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const patientSchema = new mongoose.Schema({
+    hospitalName: String,
     patientName: String,
     mrn: String,
     dateOfBirth: Date,
