@@ -47,8 +47,7 @@ async function createDefaultWard(hospitalName) {
   ]
   
   const rooms = [
-    {  roomNo: 'Room 1' , beds: beds},
-    {  roomNo: 'Room 2', beds: beds}
+    {  roomNo: 'Room 1' , beds: beds}
   ]
   
   const generalWard = new Ward({

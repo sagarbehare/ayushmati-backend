@@ -10,6 +10,7 @@ const users = require('./src/routes/user.route');
 const disease = require('./src/routes/disease.route');
 const task = require('./src/routes/task.route');
 const ward = require('./src/routes/ward.route');
+const nurseCron = require('./src/cron/nurseCron');
 
 
 const app = express();
@@ -58,6 +59,10 @@ function validateUser(req, res, next) {
     res.json({ status: "error", message: err.message, data: null });
   }
 }
+
+
+//Start Cron
+nurseCron();
 
 // Start the server
 app.listen(port, () => {
