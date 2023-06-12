@@ -1,15 +1,17 @@
 // server.js
-const express = require("express");
-const cors = require("cors");
-const connectDB = require("./src/config/db.connection");
-const jwt = require("jsonwebtoken");
-const hospitalRoutes = require("./src/routes/hospital.route");
-const authenticateRoutes = require("./src/routes/authenticate.route");
-const patientRegistrationRoutes = require("./src/routes/patient.route");
-const users = require("./src/routes/user.route");
-const disease = require("./src/routes/disease.route");
-const task = require("./src/routes/task.route");
-const ward = require("./src/routes/ward.route");
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('./src/config/db.connection');
+const jwt = require('jsonwebtoken');
+const hospitalRoutes = require('./src/routes/hospital.route');
+const authenticateRoutes = require('./src/routes/authenticate.route');
+const patientRegistrationRoutes = require('./src/routes/patient.route');
+const users = require('./src/routes/user.route');
+const disease = require('./src/routes/disease.route');
+const task = require('./src/routes/task.route');
+const ward = require('./src/routes/ward.route');
+const nurseCron = require('./src/cron/nurseCron');
+
 
 const app = express();
 
@@ -54,6 +56,10 @@ function validateUser(req, res, next) {
     res.json({ status: "error", message: err.message, data: null });
   }
 }
+
+
+//Start Cron
+nurseCron();
 
 // Start the server
 app.listen(port, () => {
