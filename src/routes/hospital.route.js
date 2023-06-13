@@ -13,9 +13,20 @@ router.get('/listHospital', async (req, res) => {
 });
 
 router.post('/createHospital', async (req, res) => {
-  const { hospitalName, email } = req.body;
+  const { newHospital } = req.body;
+
+  console.log("saving called.." + newHospital);
+
+  const hospitalName = newHospital.hospitalName;
+  const hospitalRegNo = newHospital.hospitalRegnNo;
+  const contactNo = newHospital.contactNo;
+  const faxNo = newHospital.faxNo;
+  const country = newHospital.country;
+  const state = newHospital.state;
+  const city = newHospital.city;
+  const pincode = newHospital.pincode;
+  const address = newHospital.address;
   
-  console.log('hospitalName ::: ' + hospitalName);
 
   Hospital.find({ hospitalName: hospitalName})
   .then((hospital) =>  {
@@ -24,7 +35,19 @@ router.post('/createHospital', async (req, res) => {
     if(Object.keys(hospital).length > 0 ) {
       res.status(409).json({ message: 'Hospital Already Present !' });
     } else {
-      const newHospital =  new Hospital({ hospitalName, email });
+
+      const newHospital = new Hospital({
+        hospitalName,
+        hospitalRegNo,
+        contactNo,
+        faxNo,
+        country,
+        state,
+        city,
+        pincode,
+        address
+      });
+    
       newHospital.save()
         .then(async () => {
           await createDefaultWard(hospitalName);
