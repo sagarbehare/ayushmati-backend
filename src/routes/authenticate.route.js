@@ -115,6 +115,7 @@ router.post("/login", async (req, res) => {
 
     // Generate a JWT token
     const tokenData = {
+      userID : user._id,
       emailID: emailID,
       hospitalName: user.hospitalName,
       name: user.firstName,

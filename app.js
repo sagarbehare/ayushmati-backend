@@ -35,7 +35,7 @@ app.use("/authenticate", authenticateRoutes);
 app.use("/patientRegistration", validateUser, patientRegistrationRoutes);
 app.use("/user", users);
 app.use("/disease", disease);
-app.use("/patientTask", task);
+app.use("/patientTask",validateUser, task);
 app.use("/wardsDetails", ward);
 
 // check token is expired or not
@@ -43,14 +43,15 @@ function validateUser(req, res, next) {
   const token = req.headers["x-access-token"];
   try {
     const data = jwt.verify(token, secretKey);
-    console.log(data.tokenData);
-    // req.body.userId = data.tokenDataData.id;
+    // console.log(data.tokenData);
+    req.body.userID = data.tokenData.userID;
     req.body.emailID = data.tokenData.emailID;
     req.body.name = data.tokenData.name;
     req.body.hospitalName = data.tokenData.hospitalName;
     req.body.role = data.tokenData.role;
     console.log(data.tokenData.role);
     console.log(req.body.emailID);
+    console.log(req.body.userID);
     next();
   } catch (err) {
     res.json({ status: "error", message: err.message, data: null });

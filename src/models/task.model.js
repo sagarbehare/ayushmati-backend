@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 const medicineIntakeSchema = new mongoose.Schema({
-  patientID: String,
-  primaryNurse: String,
+  patientID: mongoose.ObjectId,
+  primaryNurseID: mongoose.ObjectId,
+  patientName:String,
+  primaryNurse:String,
   medicineType: String,
   medicineName: String,
   inTakeTime: Date,
