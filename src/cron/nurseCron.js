@@ -8,9 +8,8 @@ const sendEmail = require('../mail/sendEmail');
 
 function nurseAlertCronJob(){
     cron.schedule('2 * * * * *', () => {
-      // Your code to be executed by the cron job
 
-      sendEmail();
+      // sendEmail();
 
       console.log('Cron job is running...');
     });
