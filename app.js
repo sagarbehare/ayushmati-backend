@@ -35,7 +35,7 @@ app.use("/authenticate", authenticateRoutes);
 app.use("/patientRegistration", validateUser, patientRegistrationRoutes);
 app.use("/user", users);
 app.use("/disease", disease);
-app.use("/patientTask", task);
+app.use("/patientTask",validateUser, task);
 app.use("/wardsDetails", ward);
 
 // check token is expired or not
