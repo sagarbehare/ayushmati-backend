@@ -35,7 +35,7 @@ app.use("/authenticate", authenticateRoutes);
 app.use("/patientRegistration", validateUser, patientRegistrationRoutes);
 app.use("/user", users);
 app.use("/disease", disease);
-app.use("/patientTask",validateUser, task);
+app.use("/patientTask", task);
 app.use("/wardsDetails", ward);
 
 // check token is expired or not
@@ -60,7 +60,7 @@ function validateUser(req, res, next) {
 
 
 //Start Cron
-nurseCron();
+// nurseCron();
 
 // Start the server
 app.listen(port, () => {
