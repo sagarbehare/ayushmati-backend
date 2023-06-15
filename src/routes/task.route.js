@@ -16,7 +16,10 @@ router.post("/createPatientTask", async (req, res) => {
   const medicineName = newTask.medicine;
   const inTakeTime = newTask.inTakeTime;
   const doctorInstructions = newTask.doctorInstructions;
+  
+  
   const status = "Pending";
+
   const task = new Task({
     patientID,
     primaryNurseID,
@@ -25,7 +28,7 @@ router.post("/createPatientTask", async (req, res) => {
     medicineName,
     inTakeTime,
     doctorInstructions,
-    status,
+    status
   });
   try {
     await task.save();
@@ -43,7 +46,21 @@ router.post("/patientTaskList", async (req, res) => {
   console.log(patientID);
   let response = {}
   try {
-   await Task.find({ patientID: patientID })
+
+    const currentDate = new Date();
+
+    const startDate = new Date(currentDate);
+startDate.setHours(0, 0, 0, 0);
+
+const endDate = new Date(currentDate);
+endDate.setHours(23, 59, 59, 999);
+
+
+   await Task.find({ patientID: patientID,
+     inTakeTime: { $gte: startDate, $lt: endDate } ,
+     inTakeTime: {
+      "$gte": new Date("2023-06-15"), "$lt": new Date("2023-06-15")
+    }})
       .then((task) => {
         response = {...response,task:task};
         console.log(response)
@@ -70,7 +87,6 @@ router.post("/patientTaskList", async (req, res) => {
 
 router.post("/nurseTaskList", async(req,res)=>{
   const {userID} = req.body
-  
     await Task.aggregate([
       {
         $match:{primaryNurseID:new ObjectId(userID)}
