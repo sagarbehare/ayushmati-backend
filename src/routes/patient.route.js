@@ -4,49 +4,14 @@ const router = express.Router();
 
 const crypto = require("crypto");
 
-// Routes // route.js
-// router.get('/listPatient', async (req, res) => {
-//   console.log("inside patient list")
-//   try {
-//     const { role ,name , hospitalName} = req.body;
-//     console.log(req.body.role)
-
-//    if(role==='Receptionist'){
-//     Patient.find({})
-//     .then((patient) => res.json(patient))
-//     .catch((error) => res.status(500).json({ error: 'Internal server error' }));
-//    }
-//    else if (role==='Doctor'){
-//     Patient.find({
-//       primaryDoctor:name
-//     })
-//     .then((patient) => res.json(patient))
-//     .catch((error) => res.status(500).json({ error: 'Internal server error' }));
-//    }
-
-//   } catch (error) {
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-
-// });
-
 router.get("/listPatient/:hospitalName", async (req, res) => {
-
-  
-  console.log("inside patient list");
-
   const { hospitalName } = req.params;
-
   try {
     const { role, name } = req.body;
-
-    console.log(req.body.role);
-
     if (role === "Receptionist") {
       Patient.find({ hospitalName: hospitalName })
-
+        .sort({ admissionDate: -1 })
         .then((patient) => res.json(patient))
-
         .catch((error) =>
           res.status(500).json({ error: "Internal server error" })
         );
@@ -114,6 +79,8 @@ router.post("/createPatient", async (req, res) => {
   const room = newPatient.room;
   const bed = newPatient.bed;
   const admissionDate = newPatient.admissionDate;
+  const dischargeDate = '';
+  
   const hospitalName = newPatient.hospitalName;
 
   const mrn = generateMRN();
@@ -141,6 +108,7 @@ router.post("/createPatient", async (req, res) => {
     room,
     bed,
     admissionDate,
+    dischargeDate,
     mrn,
     status,
     hospitalName
@@ -167,6 +135,12 @@ router.put("/updatePatient/:patientID", async (req, res) => {
 
   console.log(patientID);
   console.log(newPatient);
+
+
+  console.log('Discharge Date : ' + newPatient.dischargeDate);
+  if(newPatient.dischargeDate){
+    newPatient.status = 'DISCHARGED';
+  }
 
   try {
     const updatedPatient = await Patient.findOneAndUpdate(
