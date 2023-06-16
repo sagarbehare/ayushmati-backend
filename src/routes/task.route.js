@@ -103,10 +103,12 @@ router.post("/nurseTaskList", async (req, res) => {
     {
       $match: {"$and":[{
         primaryNurseID: new ObjectId(userID)},
-        {inTakeTime: {
+        /*{inTakeTime: {
                 $gte: new Date(currentDate),
                 $lte: new Date(nextDate),
-              }}]
+              }}*/
+            
+            ]
             }
     },
     {
