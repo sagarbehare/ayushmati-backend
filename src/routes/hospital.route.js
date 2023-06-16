@@ -16,7 +16,7 @@ router.post('/createHospital', async (req, res) => {
   const { newHospital } = req.body;
 
   console.log("saving called.." + newHospital);
-
+  
   const hospitalName = newHospital.hospitalName;
   const hospitalRegNo = newHospital.hospitalRegnNo;
   const contactNo = newHospital.contactNo;
