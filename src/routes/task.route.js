@@ -86,11 +86,16 @@ router.post("/patientTaskList", async (req, res) => {
 
 router.post("/nurseTaskList", async (req, res) => {
 
-  const currentDate = moment(new Date()).format("YYYY-MM-DD");
+  let currentDate = moment(new Date()).format("YYYY-MM-DD");
+  currentDate = moment(currentDate).subtract(1, "d");
+
+  console.log('Current Date :: '+ currentDate);
+
+
   let nextDate = moment(new Date()).format("YYYY-MM-DD");
   nextDate = moment(nextDate).add(1, "d");
   nextDate = moment(nextDate).format("YYYY-MM-DD");
-  console.log(nextDate)
+  console.log('nextDate' + nextDate);
 
   const { userID } = req.body;
 
