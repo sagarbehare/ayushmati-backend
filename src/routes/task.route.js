@@ -87,7 +87,7 @@ router.post("/patientTaskList", async (req, res) => {
 router.post("/nurseTaskList", async (req, res) => {
 
   let currentDate = moment(new Date()).format("YYYY-MM-DD");
-  currentDate = moment(currentDate).subtract(1, "d");
+  currentDate = moment(currentDate).subtract(1, "day");
 
   console.log('Current Date :: '+ currentDate);
 
