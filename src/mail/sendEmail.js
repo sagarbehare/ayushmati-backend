@@ -42,15 +42,17 @@ async function sendMail() {
             status: "On Alert",
           }
         );
-
+        const patientName = alertTask.result[0].firstName
+        const inTakeTime = alertTask.inTakeTime
         transporter.sendMail({
           from: "ayushmati.pesto@gmail.com",
           to: alertTask.result[0].emailID,
-          subject: `ON Alert - Medicine Intake for ${alertTask.result[0].patientName}`,
+          subject: `ON Alert - Medicine Intake for ${patientName}`,
           text: `Please Complete the task of giving medicine to 
-        ${alertTask.result[0].patientName},
+        ${patientName},
         Medicine Name : ${alertTask.medicineName},
-        Medicine Type: ${alertTask.medicineType}
+        Medicine Type: ${alertTask.medicineType},
+        In take time : ${inTakeTime}
         `,
         });
       });

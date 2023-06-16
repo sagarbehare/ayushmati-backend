@@ -60,7 +60,7 @@ function validateUser(req, res, next) {
 
 
 //Start Cron
-// nurseCron();
+nurseCron();
 
 // Start the server
 app.listen(port, () => {
