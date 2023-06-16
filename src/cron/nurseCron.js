@@ -11,7 +11,7 @@ function nurseAlertCronJob(){
 
       // sendEmail();
 
-      console.log('Cron job is running...');
+    //  console.log('Cron job is running...');
     });
 }
 

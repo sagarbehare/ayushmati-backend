@@ -24,8 +24,8 @@ const patientSchema = new mongoose.Schema({
     room: String,
     bed: String,
     admissionDate: Date,
-    dischargeDate: Date,
-    status: String
+    status: String,
+    dischargeDate: Date
 });
 
 const Patient = mongoose.model('patient', patientSchema);
