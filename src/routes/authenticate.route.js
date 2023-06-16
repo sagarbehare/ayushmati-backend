@@ -34,7 +34,7 @@ router.post("/signup", async (req, res) => {
 
     if(oldUser != null) {
       console.log('old user exists...');
-      return res.status(409).send("User Already Exist. Please Login");
+      return res.status(409).json({error:"User Already Exist. Please Login"});
     }
 
     // Hash the password
