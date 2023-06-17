@@ -45,7 +45,7 @@ async function sendMail() {
         console.log('compare date ' + theDate < Date.now());
         console.log('compare date ' + (theDate < newDate));
 
-        consolr.log('compare new time :::::' + (momentDate < newDate))
+        console.log('compare new time :::::' + (momentDate < newDate))
         // console.log('Date Now :' + Date.now());
         return theDate < Date.now();
       });
