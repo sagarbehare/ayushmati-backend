@@ -45,22 +45,24 @@ router.post("/patientTaskList", async (req, res) => {
   const { patientID } = req.body;
   console.log(patientID);
 
-  const currentDate = moment(new Date()).format("YYYY-MM-DD");
-  let nextDate = moment(new Date()).format("YYYY-MM-DD");
-  nextDate = moment(nextDate).add(1, "d");
-  nextDate = moment(nextDate).format("YYYY-MM-DD");
+  // let currentDate = moment(new Date()).format("YYYY-MM-DD");
+  // currentDate = moment(currentDate).subtract(1, "day");
+  // currentDate = moment(currentDate).format("YYYY-MM-DD");
+  // console.log('Current Date :: '+ currentDate);
 
-  console.log(currentDate);
-  console.log(nextDate);
+
+  // let nextDate = moment(new Date()).format("YYYY-MM-DD");
+  // nextDate = moment(nextDate).add(1, "d");
+  // nextDate = moment(nextDate).format("YYYY-MM-DD");
+  // console.log('nextDate' + nextDate);
+
+  // console.log(currentDate);
+  // console.log(nextDate);
 
   let response = {};
   try {
     await Task.find({
-      patientID: patientID,
-      inTakeTime: {
-        $gte: currentDate,
-        $lte: nextDate,
-      },
+      patientID: patientID
     })
       .then((task) => {
         response = { ...response, task: task };
