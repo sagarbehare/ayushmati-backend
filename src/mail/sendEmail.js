@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const Task = require("../models/task.model");
+const moment = require('moment')
 
 // // Create a transporter
 const transporter = nodemailer.createTransport({
@@ -28,9 +29,13 @@ async function sendMail() {
   if (data) {
     const taskFunction = async () => {
       const alertTasks = data.filter((task) => {
+
+       const newDate=  moment().utcOffset("+05:30").format()
+       console.log(newDate)
         const theDate = new Date(Date.parse(task.inTakeTime));
         console.log(theDate);
         console.log(theDate.toLocaleString());
+        console.log(Date.now())
         console.log(theDate < Date.now());
         return theDate < Date.now();
       });
