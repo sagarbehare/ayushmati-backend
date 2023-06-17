@@ -7,9 +7,9 @@ const sendEmail = require('../mail/sendEmail');
 // This example runs the job every minute
 
 function nurseAlertCronJob(){
-    cron.schedule('2 * * * * *', () => {
+    cron.schedule('*/15 * * * *', () => {
 
-      // sendEmail();
+      sendEmail();
 
      console.log('Cron job is running...');
     });
