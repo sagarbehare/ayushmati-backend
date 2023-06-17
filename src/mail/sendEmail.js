@@ -35,8 +35,8 @@ async function sendMail() {
         return theDate < Date.now();
       });
 
-      alertTasks.map((alertTask) => {
-        Task.updateOne(
+      alertTasks.map(async (alertTask) => {
+        await Task.updateOne(
           { _id: alertTask._id },
           {
             status: "On Alert",
