@@ -47,7 +47,7 @@ async function sendMail() {
 
         console.log('compare new time :::::' + (momentDate < newDate))
         // console.log('Date Now :' + Date.now());
-        return theDate < Date.now();
+        return momentDate < newDate;
       });
 
       alertTasks.map(async (alertTask) => {
