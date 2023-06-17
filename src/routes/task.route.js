@@ -88,7 +88,7 @@ router.post("/nurseTaskList", async (req, res) => {
 
   let currentDate = moment(new Date()).format("YYYY-MM-DD");
   currentDate = moment(currentDate).subtract(1, "day");
-
+  currentDate = moment(currentDate).format("YYYY-MM-DD");
   console.log('Current Date :: '+ currentDate);
 
 
@@ -103,11 +103,10 @@ router.post("/nurseTaskList", async (req, res) => {
     {
       $match: {"$and":[{
         primaryNurseID: new ObjectId(userID)},
-        /*{inTakeTime: {
+        {inTakeTime: {
                 $gte: new Date(currentDate),
                 $lte: new Date(nextDate),
-              }}*/
-            
+              }}
             ]
             }
     },
