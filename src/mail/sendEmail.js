@@ -31,12 +31,17 @@ async function sendMail() {
       const alertTasks = data.filter((task) => {
 
        const newDate=  moment().utcOffset("+05:30").format()
-       console.log(newDate)
+       console.log('Moment Date::::::' + newDate)
         const theDate = new Date(Date.parse(task.inTakeTime));
-        console.log(theDate);
-        console.log(theDate.toLocaleString());
-        console.log(Date.now())
-        console.log(theDate < Date.now());
+        // console.log(theDate);
+        // console.log(theDate.toLocaleString());
+        console.log('Date Now :::::::::' +Date.now())
+        // console.log(theDate < Date.now());
+
+        console.log('the date :' + theDate);
+        console.log('local string date :' + theDate.toLocaleString());
+        console.log('compare date ' + theDate < Date.now());
+        // console.log('Date Now :' + Date.now());
         return theDate < Date.now();
       });
 
