@@ -33,6 +33,8 @@ async function sendMail() {
        const newDate=  moment().utcOffset("+05:30").format()
        console.log('Moment Date::::::' + newDate)
         const theDate = new Date(Date.parse(task.inTakeTime));
+        const momentDate = moment(task.inTakeTime).format();
+        console.log('Moment intake time ::::: ' + momentDate) 
         // console.log(theDate);
         // console.log(theDate.toLocaleString());
         console.log('Date Now :::::::::' +Date.now())
