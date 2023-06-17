@@ -41,6 +41,7 @@ async function sendMail() {
         console.log('the date :' + theDate);
         console.log('local string date :' + theDate.toLocaleString());
         console.log('compare date ' + theDate < Date.now());
+        console.log('compare date ' + (theDate < newDate));
         // console.log('Date Now :' + Date.now());
         return theDate < Date.now();
       });
